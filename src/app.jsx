@@ -1,11 +1,17 @@
 import {createRoot} from 'react-dom/client';
+import { AddMember } from './components/AddMember';
+import { AddTask } from './components/AddTasks';
+import { Board } from './components/Board';
 
 
 function App(){
     return(
         <div>
-            <h1>Test</h1>
+            <AddMember/>
+            <AddTask/>
+            <Board/>
         </div>
+
     )
 }
 
