@@ -12,7 +12,8 @@ export function AddTask(){
         const newID = push(scrumRef).key; // genererar nytt firebaseID
         const newRef = child(scrumRef, `/Assignments/${newID}`)
         if(tempTitle && tempCategory){
-            update(newRef, {Category:tempCategory, Assignment:tempTitle, Member:"", Status:"New", TimeStamp:new Date().toLocaleString()})
+            console.log(tempCategory)
+            update(newRef, {Category:tempCategory, Assignment:tempTitle, Member:"", Status:"New", TimeStamp:new Date().toISOString()})
             setErrorMessage('');
         } else {
             console.warn("Title and Category are required.");
@@ -20,7 +21,7 @@ export function AddTask(){
         }
         event.target.reset();
     }
-    // Add timestamp and status NEW
+
     return(
         <div>
             <form onSubmit={handleSubmit}>
@@ -28,8 +29,8 @@ export function AddTask(){
                 <input onChange={event => tempTitle = event.target.value} placeholder="Title" type="text" />
                 <select onChange={event => tempCategory = event.target.value}>
                     <option value="">SELECT ROLL</option>
-                    <option value="backend">Backend</option>
-                    <option value="frontend">Frontend</option>
+                    <option value="Backend">Backend</option>
+                    <option value="Frontend">Frontend</option>
                     <option value="UX">UX</option>
                 </select>
                 <button>Add Task</button>

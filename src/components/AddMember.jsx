@@ -11,6 +11,7 @@ export function AddMember(){
         const newID = push(scrumRef).key; // genererar nytt firebaseID
         const newRef = child(scrumRef, `/Member/${newID}`)
         if(tempName && tempCategory){
+            console.log(tempCategory)
             update(newRef, {Category:tempCategory, Name:tempName})
             setErrorMessage('');
         } else {
@@ -26,8 +27,8 @@ export function AddMember(){
                 <input onChange={event => tempName = event.target.value} placeholder= "Name"type="text" />
                 <select onChange={event => tempCategory = event.target.value}>
                     <option value="">SELECT ROLL</option>
-                    <option value="backend">Backend</option>
-                    <option value="frontend">Frontend</option>
+                    <option value="Backend">Backend</option>
+                    <option value="Frontend">Frontend</option>
                     <option value="UX">UX</option>
                 </select>
                 <button>Add Member</button>
