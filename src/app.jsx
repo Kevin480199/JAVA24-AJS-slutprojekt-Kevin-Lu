@@ -6,16 +6,20 @@ import { SortFilter } from './components/SortFilter';
 import { scrumRef } from './js/FireBaseConfig';
 import { useEffect, useState } from 'react';
 import { child, onValue } from 'firebase/database';
+import { Login } from './components/Login';
 
 
 function App(){
     const [tasks, setTasks] = useState([]);
     const [filter, setFilter] = useState('all');
     const [sort, setSort] = useState('default');
+    const [members, setMembers] = useState([]);
     const filteredTasks = tasks.filter(task =>{
         if(filter === 'Backend') return task.Category == filter;
         else if(filter === 'Frontend') return task.Category == filter;
         else if(filter === 'UX') return task.Category == filter;
+        // members är en array
+        else if(members.some(member => member.Name === filter)) return task.Member == filter;
         else return true;
     })
     const sortedFilteredTasks = filteredTasks.toSorted((a,b)=>{
@@ -40,7 +44,6 @@ function App(){
         })
     }, [])
 
-    const [members, setMembers] = useState([]);
 
     const memberRef = child(scrumRef, 'Member');
     useEffect(()=> {
@@ -57,9 +60,10 @@ function App(){
     }, [])
     return(
         <div>
+            <Login/>
             <AddMember/>
             <AddTask/>
-            <SortFilter setFilter={setFilter} setSort={setSort}/>
+            <SortFilter setFilter={setFilter} setSort={setSort} members={members}/>
             <Board tasks={sortedFilteredTasks} members={members}/>
         </div>
 

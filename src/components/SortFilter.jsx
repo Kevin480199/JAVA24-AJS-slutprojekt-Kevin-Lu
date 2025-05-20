@@ -1,8 +1,7 @@
 
-export function SortFilter({setFilter, setSort}){
+export function SortFilter({setFilter, setSort, members}){
 
     return(
-        // Implement all OPTIONS NOT FINNISHED
         <div>
             <label htmlFor="">Filter by: </label>
             <select name="" id="filter" onChange={ event=> setFilter(event.target.value)}>
@@ -10,6 +9,13 @@ export function SortFilter({setFilter, setSort}){
                 <option value="Frontend">Frontend</option>
                 <option value="Backend">Backend</option>
                 <option value="UX">UX</option>
+                {// Makes sure the names only renders once. Members array may contain more than one occurrence
+                 [...new Map(members.map(member => [member.Name, member])).values()]
+                .map(uniqueMember => (
+                <option key={uniqueMember.id} value={uniqueMember.Name}>
+                    {uniqueMember.Name}
+                </option>
+  ))}
             </select>
             <label htmlFor="">Sort by: </label>
             <select name="" id="sort" onChange={event => setSort(event.target.value)}>
