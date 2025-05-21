@@ -3,10 +3,11 @@ import { AddMember } from './components/AddMember';
 import { AddTask } from './components/AddTasks';
 import { Board } from './components/Board';
 import { SortFilter } from './components/SortFilter';
-import { scrumRef } from './js/FireBaseConfig';
+import { auth, scrumRef } from './js/FireBaseConfig';
 import { useEffect, useState } from 'react';
 import { child, onValue } from 'firebase/database';
 import { Login } from './components/Login';
+import { onAuthStateChanged } from 'firebase/auth';
 
 
 function App(){
@@ -29,6 +30,13 @@ function App(){
         else if(sort === 'ascTime') return a.TimeStamp > b.TimeStamp? -1 : 1;
         else return 0;
     })
+    const [user, setUser] = useState(null);
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, user => {
+        setUser(user);
+        });
+        return () => unsubscribe();
+    }, []);
 
     const assigmentsRef = child(scrumRef, 'Assignments');
     useEffect(()=> {
@@ -60,11 +68,11 @@ function App(){
     }, [])
     return(
         <div>
-            <Login/>
+            <Login onLogin={setUser}/>
             <AddMember/>
             <AddTask/>
             <SortFilter setFilter={setFilter} setSort={setSort} members={members}/>
-            <Board tasks={sortedFilteredTasks} members={members}/>
+            <Board tasks={sortedFilteredTasks} members={members} user={user}/>
         </div>
 
     )

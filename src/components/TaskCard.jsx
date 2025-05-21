@@ -2,7 +2,7 @@ import { child, remove, update } from "firebase/database";
 import { scrumRef } from "../js/FireBaseConfig";
 import { useState } from "react";
 
-export function TaskCard({filteredTasks, members}){
+export function TaskCard({filteredTasks, members, user}){
     let tempSelectedMember = "";
     const [errorMessage, setErrorMessage] = useState('');
     console.log(filteredTasks, members)
@@ -39,7 +39,7 @@ export function TaskCard({filteredTasks, members}){
                             <h5>{task.Category}</h5>
                             <h5>{new Date(task.TimeStamp).toLocaleString()}</h5>
                             <h5>{task.Member? task.Member:''}</h5>
-                            {task.Status === 'New' && (
+                            {task.Status === 'New' && user && (
                                 <form>
                                     <select onChange={event => tempSelectedMember = event.target.value}>
                                         <option value="">SELECT MEMBER</option>
@@ -49,11 +49,11 @@ export function TaskCard({filteredTasks, members}){
                                 </form>
                             )}
 
-                            {task.Status === 'In-progress' && (
+                            {task.Status === 'In-progress' && user && (
                                 <button onClick={(event) => handleFinishTask(event, task.id)}>Mark as finished</button>
                             )}
 
-                            {task.Status === 'Finished' && (
+                            {task.Status === 'Finished' && user && (
                                 <button onClick={(event) => handleDeleteTask(event, task.id)}>Delete Task</button>
                             )}
                              </div>
