@@ -1,8 +1,8 @@
 import { child, push, update } from "firebase/database";
 import { useState } from "react";
-import { scrumRef } from "../js/FireBaseConfig";
+import { scrumRef } from "../js/fireBaseConfig";
 
-export function AddTask(){
+export function AddTask({user}){
 
     let tempTitle = "";
     let tempCategory = "";
@@ -24,16 +24,19 @@ export function AddTask(){
 
     return(
         <div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="d-flex align-items-center gap-2">
                 <label htmlFor="">Add new task</label>
-                <input onChange={event => tempTitle = event.target.value} placeholder="Title" type="text" />
-                <select onChange={event => tempCategory = event.target.value}>
-                    <option value="">SELECT ROLL</option>
+                <div className="form-floating mb-3">
+                    <input onChange={event => tempTitle = event.target.value} type="text" className="form-control" id="floatingInput" placeholder="Name"/>
+                    <label htmlFor="floatingInput">Title</label>
+                </div>
+                <select className="form-select w-25" onChange={event => tempCategory = event.target.value}>
+                    <option value="">SELECT ROLE</option>
                     <option value="Backend">Backend</option>
                     <option value="Frontend">Frontend</option>
                     <option value="UX">UX</option>
                 </select>
-                <button>Add Task</button>
+                <button disabled={!user} className="btn btn-primary">Add Task</button>
             </form>
             <p>{errorMessage}</p>
         </div>

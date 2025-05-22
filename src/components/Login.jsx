@@ -1,25 +1,22 @@
 
-import { auth } from "../js/FireBaseConfig";
+import { auth } from "../js/fireBaseConfig";
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { useState } from "react";
 
-export function Login({ onLogin }) {
+export function Login({ onLogin, user }) {
   let tempEmail = '';
   let tempPassword = '';
-  const [login, setLogin] = useState(false)
 
   function handleLogin(event) {
     event.preventDefault();
-    if(login){
+    if(user){
         signOut(auth)
-        setLogin(false)
+        onLogin(null)
     } else {
         console.log(tempEmail)
         signInWithEmailAndPassword(auth, tempEmail, tempPassword)
         .then(userCred => {
             const user = userCred.user;
             onLogin(user); // Call a prop to set user in App
-            setLogin(true);
             event.target.reset();
         })
         .catch(err => alert("Login failed: " + err.message));
@@ -27,10 +24,16 @@ export function Login({ onLogin }) {
   }
 
   return (
-    <form onSubmit={handleLogin}>
-      <input placeholder="Email" type="email" onChange={event => tempEmail = event.target.value} />
-      <input placeholder="Password" type="password" onChange={event => tempPassword = event.target.value} />
-      <button>{login?'Log out':'Log in'}</button>
+    <form onSubmit={handleLogin} className="d-flex align-items-center gap-2">
+        <div className="form-floating mb-3">
+            <input disabled={!!user} onChange={event => tempEmail = event.target.value} type="email" className="form-control" id="floatingInput" placeholder="Name"/>
+            <label htmlFor="floatingInput">Email</label>
+        </div>
+        <div className="form-floating mb-3">
+            <input disabled={!!user} onChange={event => tempPassword = event.target.value} type="password" className="form-control" id="floatingInput" placeholder="Name"/>
+            <label htmlFor="floatingInput">Password</label>
+        </div>
+      <button className="btn btn-primary">{user?'Log out':'Log in'}</button>
     </form>
   );
 }

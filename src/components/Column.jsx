@@ -3,9 +3,11 @@ import { TaskCard } from "./TaskCard";
 export function Column({title, filteredTasks, members, user}){
 
     return(
-        <div>
+        <div className="Column">
             <h3>{title}</h3>
-            <TaskCard filteredTasks={filteredTasks} members={members} user={user}/>
+            
+            {filteredTasks.map(task => <TaskCard key={task.id} task={task} members={members} user={user}/>)}
+            
         </div>
     )
 }

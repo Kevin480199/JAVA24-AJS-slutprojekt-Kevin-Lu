@@ -4,7 +4,7 @@ export function SortFilter({setFilter, setSort, members}){
     return(
         <div>
             <label htmlFor="">Filter by: </label>
-            <select name="" id="filter" onChange={ event=> setFilter(event.target.value)}>
+            <select className="form-select w-25" id="filter" onChange={ event=> setFilter(event.target.value)}>
                 <option value="All">All</option>
                 <option value="Frontend">Frontend</option>
                 <option value="Backend">Backend</option>
@@ -18,7 +18,7 @@ export function SortFilter({setFilter, setSort, members}){
   ))}
             </select>
             <label htmlFor="">Sort by: </label>
-            <select name="" id="sort" onChange={event => setSort(event.target.value)}>
+            <select className="form-select w-25" id="sort" onChange={event => setSort(event.target.value)}>
                 <option value="default">Default</option>
                 <option value="desABC">A-Z</option>
                 <option value="ascABC">Z-A</option>
