@@ -1,3 +1,4 @@
+// Board.jsx - Will render the three colums used new, in-progress and finished
 import { Column } from "./Column";
 
 export function Board({tasks, members, user}){

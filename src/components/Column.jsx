@@ -1,3 +1,4 @@
+// Column.jsx - Will render each task as a TaskCard
 import { TaskCard } from "./TaskCard";
 
 export function Column({title, filteredTasks, members, user}){

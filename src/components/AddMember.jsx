@@ -1,3 +1,4 @@
+// AddMember.jsx - Will render a form where you can submit a new member
 import { child, push, update } from "firebase/database";
 import { scrumRef } from "../js/fireBaseConfig";
 import { useState } from "react";
@@ -10,7 +11,7 @@ export function AddMember({user}){
     function handleSubmit(event){
         event.preventDefault();
         const newID = push(scrumRef).key; // genererar nytt firebaseID
-        const newRef = child(scrumRef, `/Member/${newID}`)
+        const newRef = child(scrumRef, `/Member/${newID}`) // Adds new node with firebase ID to parentnode scrumRef
         if(tempName && tempCategory){
             console.log(tempCategory)
             update(newRef, {Category:tempCategory, Name:tempName})

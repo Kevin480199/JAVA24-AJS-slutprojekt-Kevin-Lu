@@ -1,4 +1,4 @@
-
+// SortFilter.jsx - Will render a select for sort and filter
 export function SortFilter({setFilter, setSort, members}){
 
     return(

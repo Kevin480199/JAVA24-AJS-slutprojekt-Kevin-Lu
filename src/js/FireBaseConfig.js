@@ -1,3 +1,4 @@
+// fireBaseConfig.js - Contains all configurations needed to connect to firebase database and authentication
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref } from "firebase/database";
@@ -22,4 +23,4 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app)
 export const auth = getAuth(app);
-export const scrumRef = ref(database, '/ScrumBoard')
+export const scrumRef = ref(database, '/ScrumBoard') // Creates a parent Node

@@ -12,7 +12,7 @@ import { filterTasks, sortTasks } from './js/functions.js';
 
 
 function App(){
-    const [tasks, setTasks] = useState([]);
+    const [tasks, setTasks] = useState([]); // Rerenders tasks when tasks is updated
     const [filter, setFilter] = useState('all');
     const [sort, setSort] = useState('default');
     const [members, setMembers] = useState([]);
@@ -20,29 +20,7 @@ function App(){
     
     const assigmentsRef = child(scrumRef, 'Assignments');
     const memberRef = child(scrumRef, 'Member');
-    
-    // MODULER
-
-    /*
-    tasks.filter(task =>{
-        if(filter === 'Backend') return task.Category == filter;
-        else if(filter === 'Frontend') return task.Category == filter;
-        else if(filter === 'UX') return task.Category == filter;
-        // members är en array
-        else if(members.some(member => member.Name === filter)) return task.Member == filter;
-        else return true;
-        })
-        */ 
-       /*
-       filteredTasks.toSorted((a,b)=>{
-        if(sort === 'desABC') return a.Assignment.toLowerCase() > b.Assignment.toLowerCase()? 1 : -1;
-        else if(sort === 'ascABC') return a.Assignment.toLowerCase() > b.Assignment.toLowerCase()? -1 : 1;
-        else if(sort === 'desTime') return a.TimeStamp > b.TimeStamp? 1 : -1;
-        else if(sort === 'ascTime') return a.TimeStamp > b.TimeStamp? -1 : 1;
-        else return 0;
-        })
-        */   
-       /*
+        /*
        // Lets the user stay signed in even if page refreshes
        useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, user => {
@@ -54,6 +32,7 @@ function App(){
             */
            
            useEffect(()=> {
+                // Updates tasks whenever assigmentRef has a new node
                onValue(assigmentsRef, snapshot=> {
                    console.log(snapshot.val())
                    if(snapshot.val()){

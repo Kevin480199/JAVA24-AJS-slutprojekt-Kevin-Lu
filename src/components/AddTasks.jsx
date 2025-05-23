@@ -1,3 +1,4 @@
+// AddTask.jsx - Will render a form where you can submit a new task
 import { child, push, update } from "firebase/database";
 import { useState } from "react";
 import { scrumRef } from "../js/fireBaseConfig";
@@ -10,7 +11,7 @@ export function AddTask({user}){
     function handleSubmit(event){
         event.preventDefault();
         const newID = push(scrumRef).key; // genererar nytt firebaseID
-        const newRef = child(scrumRef, `/Assignments/${newID}`)
+        const newRef = child(scrumRef, `/Assignments/${newID}`) // creates a new node with FirebaseID to parentnode scrumRef
         if(tempTitle && tempCategory){
             console.log(tempCategory)
             update(newRef, {Category:tempCategory, Assignment:tempTitle, Member:"", Status:"New", TimeStamp:new Date().toISOString()})

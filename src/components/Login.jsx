@@ -1,4 +1,4 @@
-
+// Login.jsx - Will render a form to submit a login
 import { auth } from "../js/fireBaseConfig";
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 
@@ -10,10 +10,10 @@ export function Login({ onLogin, user }) {
     event.preventDefault();
     if(user){
         signOut(auth)
-        onLogin(null)
+        onLogin(null) // Set user to null when siged off
     } else {
         console.log(tempEmail)
-        signInWithEmailAndPassword(auth, tempEmail, tempPassword)
+        signInWithEmailAndPassword(auth, tempEmail, tempPassword) // Signs in a user with email and password. Then returns a promise
         .then(userCred => {
             const user = userCred.user;
             onLogin(user); // Call a prop to set user in App

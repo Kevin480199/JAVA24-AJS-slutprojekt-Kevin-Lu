@@ -1,3 +1,4 @@
+// TaskCard.jsx - Will render depending on what status the task has, render different information about the task
 import { child, remove, update } from "firebase/database";
 import { scrumRef } from "../js/fireBaseConfig";
 import { useState } from "react";
@@ -9,9 +10,9 @@ export function TaskCard({task, members, user}){
 
     function handleAssignment(event, taskID){
         event.preventDefault();
-        const newRef = child(scrumRef, `/Assignments/${taskID}`)
+        const newRef = child(scrumRef, `/Assignments/${taskID}`) // Creates a new node with taskID to parentnode scrumRef
         if(tempSelectedMember){
-            update(newRef, {Member:tempSelectedMember, Status:"In-progress"})
+            update(newRef, {Member:tempSelectedMember, Status:"In-progress"}) // Updates the node
             setErrorMessage('')
 
         }else{

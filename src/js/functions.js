@@ -1,3 +1,4 @@
+// functions.js - A module that contains functions needed to filter and sort tasks
 export function filterTasks(tasks, filter, members){
     console.log(tasks)
     return tasks.filter(task =>{
